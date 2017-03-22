@@ -1,0 +1,107 @@
+/**
+作者: guangbo
+模块：卡牌消息类
+说明：
+创建时间：2015-11-5
+**/
+
+syntax = "proto2";
+
+package GxProto;
+
+import "common.proto";
+
+//融合卡牌请求
+message FuseCardReq{
+	optional PbItemInfo card = 1; //
+	optional int32 useGold = 2; //是否使用元宝
+}
+
+//融合卡牌响应
+message FuseCardRsp{
+	optional RespondInfo info = 1;
+	optional int32 success = 2; //融合是否成功 1-成功 2失败
+}
+
+//分解卡牌请求
+message DecomposeCardReq{
+	repeated PbItemInfo card = 1; //
+}
+
+//分解卡牌响应
+message DecomposeCardRsp{
+	optional RespondInfo info = 1;
+}
+
+//新建卡组请求
+message NewFightCardBagReq{
+	optional string name = 1; //卡组名称
+}
+
+//新建卡组响应
+message NewFightCardBagRsp{
+	optional RespondInfo info = 1;
+	optional int32 id = 2; //卡组id
+	optional int64 ts = 3; //创建时间
+}
+
+//删除卡组请求
+message DelFightCardBagReq{
+	optional int32 id = 1; //卡组id
+}
+
+//删除卡组响应
+message DelFightCardBagRsp{
+	optional RespondInfo info = 1;
+}
+
+//添加卡牌到卡组请求
+message AddFightCardReq{
+	optional int32 cardId = 2; //战斗卡包id
+	repeated PbItemInfo card = 1; //
+}
+//添加卡牌到卡组响应
+//
+
+//删除卡组卡牌请求
+message DelFightCardReq{
+	optional int32 cardId = 2; //战斗卡包id
+	repeated PbItemInfo card = 1; //
+}
+
+//删除卡组卡牌响应
+//
+
+/* Jie */
+//添加抽取卡牌请求
+message ExtractCardReq{
+	optional int32 ExtractCardType = 1;
+}
+//添加抽取卡牌响应
+message ExtractCardRsp{
+	optional RespondInfo info = 1;
+}
+//添加领取抽卡赠送的卡牌请求
+message ReceiveCardReq{
+	optional int32 ReceiveCardType = 1;
+}
+//添加领取抽卡赠送的卡牌响应
+message ReceiveCardRsp{
+	optional RespondInfo info = 1;
+}
+//添加抽取技能卡牌请求
+message ExtractSkillCardReq{
+	optional int32 ExtractSkillCardType = 1;
+}
+//添加抽取技能卡牌响应
+message ExtractSkillCardRsp{
+	optional RespondInfo info = 1;
+}
+
+//添加获取抽卡和奖励信息请求
+//添加获取抽卡和奖励信息响应
+message GetBuyCardCardInfoRsp{
+  optional RespondInfo info           = 1;
+  optional int32 costGoldNum          = 2;
+  repeated pbBuyCardInfo  buyCardInfo = 3;  
+}

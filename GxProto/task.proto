@@ -1,0 +1,66 @@
+/**
+作者: Jie
+模块：任务消息类
+说明：
+创建时间：2015-12-22
+**/
+
+syntax = "proto2";
+
+package GxProto;
+
+message TaskState{
+	optional int32 taskType                = 1;
+	optional int32 isCompleteTaskAndReward = 2;//isCompleteTaskAndReward  0:任务还没完成;1:任务完成了并且还没有领取奖励;2任务奖励已经领取了 
+}
+
+
+message PbTaskInfo{
+	optional int32 playerLevel            = 1;
+	optional int64 passChapterTs          = 2;
+	optional int32 passChapterCnt         = 3;
+	optional int32 blueHerosCnt           = 4;
+	optional int32 purpleHerosCnt         = 5;
+	optional int32 orangeHerosCnt         = 6;
+	optional int32 receiveFreePowerCnt    = 7;
+	optional int32 buyPowerCnt            = 8;
+	optional int32 signInDaily            = 9;
+	optional int32 signInMonthCnt         =10;
+	optional int32 moneyPointCnt          =11;
+	optional int32 competitiveDailyCnt    =12;
+	optional int32 competitiveTotalCnt    =13;
+    optional int32 isPassTaskChapter      =14;
+   
+}
+
+// import "macros.proto";
+import "common.proto";
+
+//读取任务列表请求
+//NULL
+
+//读取任务列表响应
+message GetTasksListRsp{
+	optional RespondInfo info  = 1;
+	optional PbTaskInfo  tasks = 2;
+	repeated TaskState taskSchedule       =3;
+}
+
+//完成任务和触发新任务通知请求
+//NULL
+
+//完成任务和触发新任务通知响应
+message CompleteTaskRsp{
+	optional RespondInfo info = 1;
+	repeated int32 completeTaskType   = 2;
+    repeated int32 postTask           = 3;
+}
+
+//领取任务奖励请求
+message ReceiveTaskRewardReq{
+	optional int32 receiveTaskRewardType = 1;
+}
+//领取任务奖励响应
+message ReceiveTaskRewardRsp{
+	optional RespondInfo info = 1;
+}

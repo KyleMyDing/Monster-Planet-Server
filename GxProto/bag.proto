@@ -1,0 +1,48 @@
+/**
+作者: guangbo
+模块：背包消息类
+说明：
+创建时间：2015-11-5
+**/
+
+syntax = "proto2";
+
+package GxProto;
+
+import "common.proto";
+
+//使用道具请求
+message UseItemReq{
+	optional int32 indx = 1; //背包格子索引
+	optional int32 cnt = 2; //使用数量
+}
+
+//使用道具响应
+message UseItemRsp{
+	optional RespondInfo info = 1;
+}
+
+//出售道具请求
+message SellItemReq{
+	optional int32 indx = 1; //格子索引
+	optional int32 cnt = 2; //
+}
+
+//出售道具响应
+message SellItemRsp{
+	optional RespondInfo info = 1;
+}
+
+//整理背包请求
+//整理背包响应
+message OrderBagRsp{
+	optional RespondInfo info = 1;
+	optional PbBagInfo bag = 2;
+}
+
+//扩充背包请求
+//扩充背包响应
+message ExpandBagRsp{
+	optional RespondInfo info = 1;
+	optional int32 buyCount = 2;
+}

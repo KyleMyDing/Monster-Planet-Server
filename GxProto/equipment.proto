@@ -1,0 +1,51 @@
+/**
+作者: guangbo
+模块：装备消息类
+说明：
+创建时间：2015-11-5
+**/
+
+syntax = "proto2";
+
+package GxProto;
+
+import "common.proto";
+
+//强化或提升品质请求
+message StrengthenEquipmentReq{
+	optional int32 strengthen = 1; //0-强化 1-提升品质
+	optional int32 eid = 2; //装备类型id，已经装备的装备设置该字段
+	optional int32 indx = 3; //背包格子索引，背包中装备设置该字段
+	repeated int32 ConsumeIndex = 4; //消耗的装备的格子索引数组
+	optional int32 addProbability = 5; //是否使用元宝增加强化概率，1-使用，0-不使用
+	optional int32 notLeveldown = 6; //是否使用元宝防止强化降级，1-使用，0-不使用
+	optional int32 goldColorup = 7; //是否使用元宝代替材料突破，1-使用，0-不使用
+}
+
+//强化或提升品质响应
+message StrengthenEquipmentRsp{
+	optional RespondInfo info = 1;
+	optional int32 result = 2; //强化结果，0-成功，1-失败，2-失败并且降级
+	optional PbItemInfo equip = 3; //强化后装备
+}
+
+//更换装备请求
+message ReplaceEquipmentReq{
+	optional int32 indx = 1; //背包格子索引，背包中装备设置该字段
+}
+
+//更换装备响应
+message ReplaceEquipmentRsp{
+	optional RespondInfo info = 1;
+}
+
+//卸下装备请求
+message UnloadEquipmentReq{
+	optional int32 eid = 1; //装备类型id
+}
+
+//卸下装备响应
+message UnloadEquipmentRsp{
+	optional RespondInfo info = 1;
+	optional int32 indx = 2; //卸下后保存在背包的位置
+}

@@ -1,0 +1,108 @@
+/**
+作者: guangbo
+模块：好友消息类
+说明：
+创建时间：2015-11-5
+**/
+
+syntax = "proto2";
+
+package GxProto;
+
+import "common.proto";
+
+//获取好友列表请求
+//NULL
+//获取好友列表响应
+message GetFriendRsp{
+	optional RespondInfo info = 1;
+	optional int32 ts = 2; //每天第一次领取时间
+	optional int32 cnt = 3; //今天已经领取赠送次数
+	//返回id,name,vocationId,expr,FightValue,online等字段
+	repeated RoleCommonInfo unaccepts = 4; //被申请好友列表，需要自己同意或者拒绝
+	repeated RoleCommonInfo accepts = 5;  //正式好友列表
+}
+
+
+//获取推荐好友列表请求
+//NULL
+//获取推荐好友列表响应
+message GetReferrerRsp{
+	optional RespondInfo info = 1;
+	//返回id,name,vocationId,expr,FightValue,online等字段
+	repeated RoleCommonInfo roles = 2; 
+}
+
+
+//添加好友请求
+message AddFriendReq{
+	repeated int32 roleId = 1;
+	repeated string roleName = 2;
+}
+//添加好友响应
+//NULL
+
+//添加好友通知
+message AddFriendNotify{
+	optional RespondInfo info = 1;
+	repeated RoleCommonInfo roles = 2;
+}
+
+//同意或者拒绝添加好友请求
+message DealFriendReq{
+	repeated int32 roleId = 1;
+	optional int32 agree = 2; //是否同意,1-同意,0-拒绝
+}
+//同意或者拒绝添加好友响应
+//NULL
+
+//同意或者拒绝添加好友通知
+message DealFriendNotify{
+	optional RespondInfo info = 1;
+	repeated int32 roleId = 2;
+	optional int32 agree = 3; //是否同意,1-同意,0-拒绝
+	repeated RoleCommonInfo roles = 4;
+}
+
+//删除好友请求
+message DeleteFriendReq{
+	optional int32 roleId = 1;
+}
+//删除好友响应
+//NULL
+
+//删除好友通知
+message DeleteFriendNotify{
+	repeated RoleCommonInfo roles = 1;
+}
+
+//赠送物品请求
+message FriendSendReq{
+	optional int32 roleId = 1;
+}
+//赠送物品响应
+//NULL
+
+//赠送物品通知
+message FriendSendNotify{
+	optional RespondInfo info = 1;
+	repeated int32 roleId = 2;
+}
+
+//领取赠送物品请求
+message FriendRecvReq{
+	optional int32 roleId = 1;
+}
+
+//领取赠送物品响应
+message FriendRecvRsp{
+	optional RespondInfo info = 1;
+}
+
+//好友状态变更通知
+message FriendInfoChangeNotify{
+	optional RespondInfo info = 1;
+	repeated RoleCommonInfo roles = 2; 
+}
+
+//切磋

@@ -1,0 +1,37 @@
+/**
+作者: guangbo
+模块：服务器消息类
+说明：
+创建时间：2015-11-5
+**/
+
+syntax = "proto2";
+
+package GxProto;
+
+// import "macros.proto";
+import "common.proto";
+
+message ServerConnectGateReq{
+	optional uint32 id = 1; //id为0表示公用服务器
+	repeated uint32 cmds = 2;
+}
+
+message ClientLogoutNotify{
+	optional string playerName = 1;
+}
+
+
+message AdminReq{
+	repeated int32 serverids = 1; //服务器id
+	optional string cmd = 2;
+	repeated string parameter = 3;
+}
+
+message AdminRsp{
+	optional string info = 1;
+	optional RoleCommonInfo role = 2;
+	optional PbBagInfo bag = 3;
+	optional PbCardBagInfo cardBag = 4;
+	optional PbFightCardBagInfo fightCardBag = 5;
+}

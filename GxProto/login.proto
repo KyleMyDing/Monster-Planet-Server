@@ -1,0 +1,32 @@
+/**
+作者: guangbo
+模块：登录服务器消息类
+说明：
+创建时间：2015-11-5
+**/
+
+syntax = "proto2";
+
+package GxProto;
+
+import "macros.proto";
+import "common.proto";
+
+//登陆帐号请求.
+message LoginServerReq{
+	optional TerminalType tt = 1; //终端类型.
+	optional PlatformType pt = 2; //鉴权类型, 参见Gmacros.proto.
+	optional GameRunType gr = 3; //运营版本.
+	optional PlayerRaw raw = 4; //官方帐号使用.
+}
+
+//登陆帐号响应
+message LoginServerRsp{
+	optional LoginRspInfo info = 1;
+}
+
+
+message GetGatesInfoRsp {
+	repeated string host = 1; //登录网关服务器ip.
+	repeated uint32 port = 2; //登录网关服务器端口.
+}

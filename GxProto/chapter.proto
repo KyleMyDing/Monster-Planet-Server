@@ -1,0 +1,81 @@
+/**
+作者: guangbo
+模块：副本消息类
+说明：
+创建时间：2015-11-5
+**/
+
+syntax = "proto2";
+
+package GxProto;
+
+import "common.proto";
+
+//关卡信息
+message PbLevelInfo{
+	optional int32 id = 1; //关卡id
+	optional int32 pass = 2;  //是否通关,1-通关,0-未通关
+}
+
+//读取章节关卡信息请求
+message GetLevelInfoReq{
+	optional int32 chapterId = 1; //章节id
+}
+
+//读取章节关卡信息响应
+message GetLevelInfoRsp{
+	optional RespondInfo info = 1;
+	repeated PbLevelInfo levels = 2;
+}
+
+//关卡信息
+message PbPointInfo{
+	optional int32 id = 1; //战斗点id
+	optional int32 passCnt = 2;  //通关次数
+	optional int32 fightCnt = 3;  //战斗次数
+}
+
+//读取关卡战斗点信息请求
+message GetPointInfoReq{
+	optional int32 chapterId = 1; //章节id
+	optional int32 levelId = 2; //关卡id
+}
+
+//读取关卡战斗点信息响应
+message GetPointInfoRsp{
+	optional RespondInfo info = 1;
+	repeated PbPointInfo points = 2;
+}
+
+//战斗洗牌请求
+//NULL
+//战斗洗牌请求
+message ChapterShuffleRsp{
+	optional RespondInfo info = 1;
+}
+
+
+//征战战斗开始请求
+message ChapterBattleBeginReq{
+	optional int32 chapterId = 1; //章节id
+	optional int32 levelId = 2; //关卡id
+	optional int32 pointId = 3; //战斗点id
+}
+
+//征战战斗开始响应
+message ChapterBattleBeginRsp{
+	optional RespondInfo info = 1;
+}
+
+//征战战斗结束请求
+message ChapterBattleEndReq{
+	optional int32 win = 1; 
+}
+
+//征战战斗结束响应
+message ChapterBattleEndRsp{
+	optional RespondInfo info = 1;
+	optional int32 chapterId = 2; //章节id
+	optional int32 levelId = 3; //关卡id
+	optional int32 pointId = 4; //战斗点id	
+}

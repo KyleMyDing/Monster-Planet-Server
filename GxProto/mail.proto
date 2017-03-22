@@ -1,0 +1,57 @@
+/**
+作者: guangbo
+模块：邮件消息类
+说明：
+创建时间：2015-12-14
+**/
+
+syntax = "proto2";
+
+package GxProto;
+
+import "common.proto";
+
+//邮件详细信息
+message PbMailInfo{
+	optional int32 id = 1; //邮件ID
+	optional string sender = 2;  //发送者
+	optional int32 ts = 3; //邮件生成时间
+	optional string title = 4; //标题
+	optional string text = 5; //内容
+	repeated PbItemInfo items = 6; //可领取物品
+	optional int32 read = 7; //是否读取， 1-读取，0-未读取
+}
+
+//读取邮件列表请求
+//NULL
+
+//读取邮件列表响应
+message GetMailListRsp{
+	optional RespondInfo info = 1;
+	repeated PbMailInfo mails = 2; //邮件列表
+}
+
+//阅读邮件请求
+message ReadMailReq{
+	optional int32 id = 1; //邮件ID
+}
+
+//阅读邮件响应
+//NULL
+
+//领取(删除)邮件请求(有物品的邮件，领取之后就直接删除，没有物品的直接删除)
+message GetMailItemReq{
+	repeated int32 id = 1; //邮件ID
+}
+
+//领取(删除)邮件响应
+message GetMailItemRsp{
+	optional RespondInfo info = 1;
+}
+
+//新邮件通知
+message NewMailNotify{
+	optional RespondInfo info = 1;
+	repeated PbMailInfo mails = 2; //邮件列表
+}
+

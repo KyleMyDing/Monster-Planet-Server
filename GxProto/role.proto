@@ -1,0 +1,131 @@
+/**
+作者: guangbo
+模块：角色消息类
+说明：
+创建时间：2015-11-5
+**/
+
+syntax = "proto2";
+
+package GxProto;
+
+// import "macros.proto";
+import "common.proto";
+
+message GetRoleListReq {
+	optional RequestInfo info = 1; // 请求附带信息.
+}
+
+message GetRoleListRsp{
+	optional RespondInfo info = 1;
+	repeated RoleCommonInfo roles = 2;
+	optional int32 serverTs = 3; //当前服务器时间
+}
+
+message SelectRoleReq {
+	optional RequestInfo info = 1; // 请求附带信息.
+	optional int32 roleId = 2;
+}
+
+message SelectRoleRsp{
+	optional RespondInfo info = 1;
+	optional RoleCommonInfo role = 2;
+	optional PbBagInfo bag = 3;
+	optional PbCardBagInfo cardBag = 4;
+	optional PbFightCardBagInfo fightCardBag = 5;
+
+	optional RoleOtherInfo other = 6; 
+}
+
+message CreateRoleReq {
+	optional RequestInfo info = 1; // 请求附带信息.
+	optional string name = 2;
+	optional int32 sex = 3;
+}
+
+message CreateRoleRsp{
+	optional RespondInfo info = 1;
+	optional RoleCommonInfo role = 2;
+	optional PbBagInfo bag = 3;
+	optional PbCardBagInfo cardBag = 4;
+	optional PbFightCardBagInfo fightCardBag = 5;
+
+	optional RoleOtherInfo other = 6; 
+}
+
+//角色体力恢复通知
+message PowerAddNotify{
+	optional RespondInfo info = 1;
+}
+
+//购买体力请求
+//NULL
+//购买免费体力请求
+message BuyPowerRsp{
+	optional RespondInfo info = 1;
+	optional int32 buyPowerCnt = 2; //当天购买体力次数
+	optional int64 buyPowerTs = 3; //最近一次购买体力的时间
+}
+
+//领取免费体力请求
+//NULL
+//领取免费体力请求
+message GetFreePowerRsp{
+	optional RespondInfo info = 1;
+	optional int64 getFreePowerTs = 2; //最近一次领取免费体力的时间
+}
+
+//角色信息变更通知
+message InfoChangeNotify{
+	optional RespondInfo info = 1;
+}
+
+//发送聊天消息请求
+message SendChatReq{
+	optional int32 type = 1; //1-世界频道 2-军团频道 3-私聊频道
+	optional int32 roleId = 2; //私聊玩家角色id
+	optional string text = 3; //聊天内容
+}
+//发送聊天消息响应
+//NULL
+
+//新聊天消息通知
+message NewChatNotify{
+	optional int32 type = 1; //1-世界频道 2-军团频道 3-私聊频道
+	optional RoleCommonInfo role = 2; //发送消息玩家信息 包含id，name，ip，vocationId字段
+	optional int64 ts = 3; //发送时间
+	optional string text = 4; //聊天内容
+}
+
+//选择职业请求
+message SelectVocationReq{
+	optional int32 vocationId = 1;
+}
+
+//选择职业响应
+//NULL
+
+//获取玩家战斗信息请求
+message GetRoleFightInfoReq{
+	optional int32 roleId = 1; //角色id
+}
+
+//获取玩家战斗信息响应
+message GetRoleFightInfoRsp{
+	optional RespondInfo info = 1;
+	optional RoleCommonInfo role = 2;
+	optional PbFightCardBagInfo fightCardBag = 5;
+}
+
+//充值请求
+message RechargeReq{
+	optional int32 rechargeType = 1; //充值类型
+}
+//充值响应
+//NULL
+
+//充值到账通知
+message RechargeNotify{
+	optional RespondInfo info = 1;
+	optional int32 rechargeType = 2;
+}

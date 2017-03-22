@@ -1,0 +1,145 @@
+/**
+作者: guangbo
+模块：常用类
+说明：
+创建时间：2015-11-5
+**/
+
+syntax = "proto2";
+
+package GxProto;
+
+message PlayerRaw {
+	optional string username = 1; //姓名.
+	optional string pwd = 2; //密码.
+	optional string email = 3; //邮箱.
+}
+
+message GameSrvInfo{
+	optional uint32 index = 1; //区号.
+	optional string name = 2; //服务器名称.
+	optional uint32 status = 3; //服务器状态. 0-新股 1-火爆 2-正常 3-维护
+	optional uint32 lastts = 4; //最近登录时间.
+}
+
+//登录游戏相关数据.
+message LoginRspInfo{
+	optional string token = 1; //鉴权凭证.
+	optional string host = 2; //登录网关服务器ip.
+	optional uint32 port = 3; //登录网关服务器端口.
+	repeated GameSrvInfo srvs = 4; //服务器列表.
+	optional string version1 = 5; //游戏版本号1
+	optional string version2 = 6; //游戏版本号2
+	optional string version3 = 7; //游戏版本号3
+	optional string download = 8; //资源下载地址.
+}
+
+message RoleCommonInfo{
+	optional int32 id = 1; //角色id
+	optional string name = 2; //角色名
+	optional int32 sex = 3; //性别 1-男 2-女
+	optional int32 vocationId = 4; //职业
+	optional int32 vip = 5; //vip等级
+	optional int64 expr = 6; //累计经验
+	optional int64 money = 7; //金币
+	optional int64 gold = 8; //元宝
+	optional int64 power = 9; //体力
+	optional int64 powerts = 10; //体力恢复时间
+	optional int64 honor = 11; //荣誉
+	optional int64 armyPay = 12; //军团贡献
+
+	optional PbItemInfo wings = 13; //翅膀
+	optional PbItemInfo weapon = 14; //武器
+	optional PbItemInfo coat = 15; //上衣
+	optional PbItemInfo cloakd = 16; //披风
+	optional PbItemInfo trouser = 17; //下衣
+	optional PbItemInfo armguard = 18; //护手
+	optional PbItemInfo shoes = 19; //鞋子
+
+	optional int32 fightCardDistri = 20; //已经创建卡套的id列表，位表示
+	optional int32 buyPowerCnt = 21; //当天购买体力次数
+	optional int64 buyPowerTs = 22; //最近一次购买体力的时间
+	optional int64 getFreePowerTs = 23; //最近一次领取免费体力的时间
+
+	//好友功能使用
+	optional int32 fightValue = 24; //战斗力
+	optional int32 online = 25; //是否在线
+	optional int32 send = 26; //是否已经赠送物品 1-已经赠送 0-未赠送
+	optional int32 recv = 27; //是否可以领取物品 1-可领取 0-不可领取
+}
+
+message RoleOtherInfo{
+	optional int32 unreadMailCmt = 1; //未领取奖励邮件的数量 
+	optional int32 chapterId = 2; //章节id
+	optional int32 levelId = 3; //关卡id
+	optional int32 pointId = 4; //战斗点id
+}
+
+//道具信息
+message PbItemInfo{
+	optional int32 id = 1; //道具id
+	optional int32 cnt = 2; //数量，装备的话，表示强化失败次数
+}
+
+//背包单元格信息
+message PbBagCellInfo{
+	optional int32 indx = 1; //单元格序号
+	optional PbItemInfo item = 2;
+}
+
+//背包信息
+message PbBagInfo{
+	optional int32 buyCount = 1; //已经购买的格子数量
+	repeated PbBagCellInfo cells = 2;
+}
+
+//卡包信息
+message PbCardBagInfo{
+	optional int32 indx = 1; //战斗卡包序号
+	optional string name = 2; //战斗卡包名称
+	repeated PbItemInfo cards = 3;
+}
+
+//战斗卡包信息
+message PbFightCardBagInfo{
+	repeated PbCardBagInfo cards = 1;
+}
+
+
+
+// 请求附带信息
+// 掉线重连后可以设置token继续操作，token保存一个小时
+message RequestInfo{
+	optional string token = 1; //鉴权凭证.
+}
+
+message PbCellInfo{
+	optional int32 indx  = 1;
+	optional PbItemInfo item = 2;
+}
+
+// 元宝	40001
+// 金币	40002
+// 体力	40003
+// 荣誉	40004
+// 个人贡献	40005
+// 军团贡献	40006
+// 回廊币	40007
+message RoleChangeInfo{
+	repeated PbCellInfo items = 1;
+}
+
+/*Jie*/
+message pbBuyCardInfo{
+	optional int32 extractCardType = 1;
+	optional int32 freeCnt         = 2;
+	optional int64 ts              = 3;
+}
+
+
+//响应通用信息
+message RespondInfo{
+	optional RoleChangeInfo obtain = 1; //获取
+	optional RoleChangeInfo consume = 2; //消耗
+}
+
